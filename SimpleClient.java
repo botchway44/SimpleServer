@@ -47,9 +47,7 @@ public class SimpleClient {
 			host = host + "/";
 		}
 		try{
-			// new
 			byte[] bytes = getImageByteArray(fileName, width, height);
-			
 			String contents = Base64.getUrlEncoder().encodeToString(bytes);
 					
 			String params = "saveImage";
