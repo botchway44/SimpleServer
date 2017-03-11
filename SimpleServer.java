@@ -1,3 +1,10 @@
+/*
+ * File: SimpleServer
+ * -------------
+ * This makes a server which is set up to receive HTTP GET requests (and
+ * does some slightly more complicated file transfer)
+ */
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
