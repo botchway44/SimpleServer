@@ -62,15 +62,13 @@ public class SimpleClient {
 			r.addParam("file", "fileName");
 			r.addParam("file", contents);
 			
-			String fromServer = makeGetRequest(host, r);
-			return fromServer;
+			return makeGetRequest(host, r);
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static String makeGetRequest(String host, Request r)
-			throws IOException{
+	private static String makeGetRequest(String host, Request r) throws IOException{
 		URL destination = new URL(host + r.toGetRequest());
 		HttpURLConnection conn = (HttpURLConnection) destination.openConnection();
 		conn.setRequestMethod("GET");
