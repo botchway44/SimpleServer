@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 
 public class SimpleClient {
 
+	/* If a server response starts with this magical string, I throw an exception */
 	private static final String ERROR_KEY = "Error";
 
 	/**
@@ -77,7 +78,6 @@ public class SimpleClient {
 	 * Method: Make Request
 	 * ------------------
 	 * This method nicely packages the few unsightly details in making an HTTP get request.
-	 * 
 	 */
 	public static String makeRequest(String host, Request request) throws IOException {
 		host = sanitizeHost(host);
