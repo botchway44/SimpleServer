@@ -57,7 +57,7 @@ public class Request {
 	 * as a TreeMap so that order or parameters is consistent.
 	 */
 	public Request(String cmd){
-		if(!isValid(cmd)) throw new RuntimeException("The command " + cmd + " is not valid.");
+		if(!isCommandValid(cmd)) throw new RuntimeException("The command " + cmd + " is not valid.");
 		command = cmd;
 		params = new TreeMap<String, String>();
 	}
@@ -87,8 +87,9 @@ public class Request {
 	/**
 	 * Method: toString
 	 * --------------------
-	 * Makes a request, initially by setting its command. The parameters are saved
-	 * as a TreeMap so that order or parameters is consistent.
+	 * I really like this representation. It looks like this:
+	 *   setStatus (name=Chris, status=coding)
+	 * The first string is the command, the rest are the params.
 	 */
 	@Override
 	public String toString() {
@@ -103,6 +104,13 @@ public class Request {
 		return str;
 	}
 
+	/**
+	 * Method: To Get Request
+	 * --------------------
+	 * Turns this request object into your cononical GET request format.
+	 * For example: 
+	 *   setStatus?name=Chris&status=coding
+	 */
 	public String toGetRequest() {
 		String getRequest = command;
 		if(!params.isEmpty()) {
@@ -119,7 +127,13 @@ public class Request {
 		return getRequest;
 	}
 	
-	private boolean isValid(String cmd) {
+	/**
+	 * Method: Is Command Valid
+	 * --------------------
+	 * Does a *very* basic check to make sure that the command is valid. This
+	 * is not thorough. 
+	 */
+	private boolean isCommandValid(String cmd) {
 		if(cmd.contains("?")) return false;
 		if(cmd.contains(" ")) return false;
 		return true;
