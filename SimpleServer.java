@@ -99,7 +99,6 @@ public class SimpleServer {
 		return request;
 	}
 
-
 	/**
 	 * Method: Get URI String
 	 * -----------------------
@@ -110,6 +109,19 @@ public class SimpleServer {
 		String uriStr = uri.toString();
 		uriStr = uriStr.substring(1);
 		return uriStr;
+	}
+	
+	/**
+	 * Method: Make Standard Response
+	 * -----------------------
+	 * All the responses in the HTTP server allow remote origin, are text, and return response
+	 * 200 (success). If the server wants to return an error it returns a string that starts
+	 * with "Error".
+	 */
+	private void makeStandardExchange(HttpExchange exchange, File file) throws IOException {
+		exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+		exchange.getResponseHeaders().set("Content-Type", "text/plain");
+		exchange.sendResponseHeaders(200, file.length());
 	}
 
 	class FaveIconHandler implements HttpHandler {
@@ -123,17 +135,9 @@ public class SimpleServer {
 				outputStream.close();
 			} catch(IOException e) {
 				e.printStackTrace();
-			} catch(RuntimeException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
+			} 
 		}
 
-		private void makeStandardExchange(HttpExchange exchange, File file) throws IOException {
-			exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-			exchange.getResponseHeaders().set("Content-Type", "text/plain");
-			exchange.sendResponseHeaders(200, file.length());
-		}
 	}
 
 	class ServerImageReceiver implements HttpHandler {
