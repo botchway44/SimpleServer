@@ -29,9 +29,7 @@ public class SimpleClient {
 
 	public static GImage getImage(String host, String fileName) {
 		try {
-			if(!host.endsWith("/")) {
-				host = host + "/";
-			}
+			host = sanitizeHost(host);
 			URL url = new URL(host + "images/" +fileName);
 			Image image = ImageIO.read(url);
 			return new GImage(image);
@@ -51,9 +49,7 @@ public class SimpleClient {
 	 * Also in the future I would look into doing this without a get request :-).
 	 */
 	public static String saveImage(String host, String fileName, int width, int height) {
-		if(!host.endsWith("/")) {
-			host = host + "/";
-		}
+		host = sanitizeHost(host);
 		try{
 			byte[] bytes = getImageByteArray(fileName, width, height);
 			String contents = Base64.getUrlEncoder().encodeToString(bytes);
@@ -69,9 +65,7 @@ public class SimpleClient {
 	}
 	
 	public static String makeRequest(String host, Request request) throws IOException {
-		if(!host.endsWith("/")) {
-			host = host + "/";
-		}
+		host = sanitizeHost(host);
 		try{
 			String fromServer = makeGetRequest(host, request);
 			
@@ -87,6 +81,13 @@ public class SimpleClient {
 		} catch (ConnectException e) {
 			throw new ConnectException("Unable to connect to the server. Did you start it?");
 		}
+	}
+
+	private static String sanitizeHost(String host) {
+		if(!host.endsWith("/")) {
+			host = host + "/";
+		}
+		return host;
 	}
 
 	private static String makeGetRequest(String host, Request r) throws IOException{
