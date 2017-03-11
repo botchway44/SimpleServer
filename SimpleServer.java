@@ -30,8 +30,6 @@ public class SimpleServer {
 	// This is the student application that can respond to calls
 	private SimpleServerListener webApp;
 	
-	
-
 	/**
 	 * Method: Constructor
 	 * -------------------
