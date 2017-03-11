@@ -134,7 +134,9 @@ public class SimpleServer {
 		public void handle(HttpExchange exchange) throws IOException {
 			try {
 				File file = new File("images/faveicon.ico");
-				makeStandardExchange(exchange, file);
+				makeStandardExchange(exchange);
+
+				exchange.sendResponseHeaders(200, file.length());
 				OutputStream outputStream=exchange.getResponseBody();
 				Files.copy(file.toPath(), outputStream);
 				outputStream.close();
