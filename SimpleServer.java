@@ -135,7 +135,6 @@ public class SimpleServer {
 			try {
 				File file = new File("images/faveicon.ico");
 				makeStandardExchange(exchange);
-
 				exchange.sendResponseHeaders(200, file.length());
 				OutputStream outputStream=exchange.getResponseBody();
 				Files.copy(file.toPath(), outputStream);
