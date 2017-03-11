@@ -1,5 +1,5 @@
 /* 
- * File: FacePamphlet.java
+ * File: SimpleClient.java
  * -----------------------
  * When it is finished, this program will implement a basic social network
  * management system.
