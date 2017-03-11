@@ -16,12 +16,6 @@ import com.sun.net.httpserver.HttpServer;
 
 import acm.util.RandomGenerator;
 
-/**
- * Class: SimpleServer
- * -------------
- * This makes a server which is set up to receive HTTP GET requests (and
- * does some slightly more complicated file transfer)
- */
 public class SimpleServer {
 
 	// Port 8000 seems like a good default
