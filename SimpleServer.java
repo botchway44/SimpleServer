@@ -153,8 +153,10 @@ public class SimpleServer {
 	 * images dir (which allows for easy access by the acm library GImage). I
 	 * wrote a version of this handler that I preferred, where it generated a random
 	 * filename for the image, saved the image with that file name and then returned
-	 * the filename to the client. The annoying part of that solution was that I had
-	 * no way to detect if an image already existed on the 
+	 * the filename to the client. 
+	 * 
+	 * IN THE FUTURE: get the image, and make a filename using a hash of its pixels
+	 * values :-)
 	 */
 	class ServerImageReceiver implements HttpHandler {
 		@Override
