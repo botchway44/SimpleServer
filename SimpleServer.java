@@ -154,8 +154,6 @@ public class SimpleServer {
 				makeStandardExchange(exchange);
 				exchange.sendResponseHeaders(200, response.length());
 				OutputStream os = exchange.getResponseBody();
-				exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-				exchange.getResponseHeaders().set("Content-Type", "text/plain");
 				os.write(response.getBytes());
 				os.close();
 			} catch(IOException e) {
