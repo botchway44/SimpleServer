@@ -107,13 +107,13 @@ public class SimpleClient {
 	 * Private helper methods 
 	 ************************************************************************************/
 
-	private static String sanitizeHost(String host) {
-		if(!host.endsWith("/")) {
-			host = host + "/";
-		}
-		return host;
-	}
-
+	/**
+	 * Sanitize Host
+	 * -------------
+	 * Many of the public methods generate get requests by appending the host name to the
+	 * get request string. This method standardizes the host name so that it ends with a 
+	 * '/'.
+	 */
 	private static String makeGetRequest(String host, Request r) throws IOException{
 		URL destination = new URL(host + r.toGetRequest());
 		HttpURLConnection conn = (HttpURLConnection) destination.openConnection();
@@ -153,6 +153,20 @@ public class SimpleClient {
 	private static boolean startsWithPunctuation(String msg) {
 		if(msg.isEmpty()) return false;
 		return !Character.isLetterOrDigit(msg.charAt(0));
+	}
+	
+	/**
+	 * Sanitize Host
+	 * -------------
+	 * Many of the public methods generate get requests by appending the host name to the
+	 * get request string. This method standardizes the host name so that it ends with a 
+	 * '/'.
+	 */
+	private static String sanitizeHost(String host) {
+		if(!host.endsWith("/")) {
+			host = host + "/";
+		}
+		return host;
 	}
 
 }
