@@ -118,12 +118,17 @@ public class SimpleServer {
 	 * 200 (success). If the server wants to return an error it returns a string that starts
 	 * with "Error".
 	 */
-	private void makeStandardExchange(HttpExchange exchange, File file) throws IOException {
+	private void makeStandardExchange(HttpExchange exchange) throws IOException {
 		exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
 		exchange.getResponseHeaders().set("Content-Type", "text/plain");
-		exchange.sendResponseHeaders(200, file.length());
 	}
 
+	/**
+	 * Handlers: FaveIconHandler
+	 * -----------------------
+	 * If there is a faveicon.ico in the images directory, we return that given
+	 * an faveicon request.
+	 */
 	class FaveIconHandler implements HttpHandler {
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
@@ -156,9 +161,7 @@ public class SimpleServer {
 				fos.close();
 
 				String response = "success";
-				exchange.sendResponseHeaders(200, response.length());
-				exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-				exchange.getResponseHeaders().set("Content-Type", "text/plain");
+				makeStandardExchange(exchange, file);
 				OutputStream os = exchange.getResponseBody();
 				os.write(response.getBytes());
 				os.close();
