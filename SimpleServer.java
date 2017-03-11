@@ -76,12 +76,12 @@ public class SimpleServer {
 	/**
 	 * Method: Make Request
 	 * -------------
-	 * This method starts a server on the given port. It is hard coded to handle
-	 * img requests and resource requests specially by just reading the files and
-	 * returning them. All other requests should be handled by the users code.
+	 * This is a factory method which takes in a GET request string and turns it into a 
+	 * "Request" object (the main abstraction that we use in CS106A for sending requests).
+	 * Uses the standard GET protocol <cmd>?param1=val1&param2=val2 etc
 	 */
-	private Request constructRequest(String uri) {
-		String[] requestParts = uri.split("\\?");
+	private Request constructRequest(String getRequestString) {
+		String[] requestParts = getRequestString.split("\\?");
 		String command = requestParts[0];
 		Request request = new Request(command);
 		if(requestParts.length == 2) {
