@@ -89,7 +89,9 @@ public class SimpleServer {
 			String[] paramParts = paramStr.split("&");
 			for(String paramPart : paramParts) {
 				if(paramPart.split("=").length != 2) {
-					return null;
+					String key = paramPart.split("=")[0];
+					String value = "";
+					request.addRaw(key, value);
 				} else {
 					String key = paramPart.split("=")[0];
 					String value = paramPart.split("=")[1];
