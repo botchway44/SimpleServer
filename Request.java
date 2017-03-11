@@ -12,9 +12,20 @@ import java.util.TreeMap;
 
 public class Request {
 
+	/* This is the string right after the HOST */
 	private String command;
+	
+	/* Get requests map parameter-names to their values */
 	private Map<String, String> params;
 	
+	/**
+	 * Static Method: Decode
+	 * --------------
+	 * A public (static) method that takes in a String that has been
+	 * UTF-8 encoded and decodes it. There is *no* error checking to
+	 * make sure that the string had been encoded... if you call this
+	 * on an unencoded string, functionality is undefined (and not good).
+	 */
 	public static String decode(String str) {
 		try {
 			return URLDecoder.decode(str, "UTF-8");
@@ -23,6 +34,13 @@ public class Request {
 		}
 	}
 	
+	/**
+	 * Static Method: Encode
+	 * --------------
+	 * A public (static) method that takes in a String and UTF-8 encodes it. 
+	 * There is *no* error checking to make sure that the string has not 
+	 * already been encoded.
+	 */
 	public static String encode(String str) {
 		try {
 			return URLEncoder.encode(str, "UTF-8");
