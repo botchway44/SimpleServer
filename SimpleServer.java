@@ -92,7 +92,6 @@ public class SimpleServer {
 				String value = "";
 				if(paramPart.split("=").length == 2) {
 					value = paramPart.split("=")[1];
-					
 				} 
 				request.addRaw(key, value);
 			}
