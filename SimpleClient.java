@@ -30,7 +30,10 @@ public class SimpleClient {
 	/**
 	 * Method: Load Image
 	 * ------------------
-	 * This method leverages Image's ability
+	 * This method leverages Image's ability to load directly from a URL. It seems like
+	 * this should not be necessary, since GImage can also load from host. But we have
+	 * found out that GImage doesn't seem to be able to load from localhost with a port,
+	 * whereas Java image can.
 	 */
 	public static GImage getImage(String host, String fileName) {
 		try {
@@ -69,6 +72,13 @@ public class SimpleClient {
 		}
 	}
 	
+
+	/**
+	 * Method: Make Request
+	 * ------------------
+	 * This method nicely packages the few unsightly details in making an HTTP get request.
+	 * 
+	 */
 	public static String makeRequest(String host, Request request) throws IOException {
 		host = sanitizeHost(host);
 		try{
@@ -87,6 +97,12 @@ public class SimpleClient {
 			throw new ConnectException("Unable to connect to the server. Did you start it?");
 		}
 	}
+	
+	
+	
+	/* **********************************************************************************
+	 * Private helper methods 
+	 ************************************************************************************/
 
 	private static String sanitizeHost(String host) {
 		if(!host.endsWith("/")) {
