@@ -143,9 +143,19 @@ public class SimpleServer {
 				e.printStackTrace();
 			} 
 		}
-
 	}
 
+	/**
+	 * Handlers: ServerImageReceiver
+	 * -----------------------
+	 * The SimpleClient / SimpleServer have a protocol for sending images. This
+	 * method handles an image sent over by a SimpleClient. It saves it into the 
+	 * images dir (which allows for easy access by the acm library GImage). I
+	 * wrote a version of this handler that I preferred, where it generated a random
+	 * filename for the image, saved the image with that file name and then returned
+	 * the filename to the client. The annoying part of that solution was that I had
+	 * no way to detect if an image already existed on the 
+	 */
 	class ServerImageReceiver implements HttpHandler {
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
@@ -155,7 +165,6 @@ public class SimpleServer {
 				String fileStr = r.getParam("file");
 				byte [] bytes = Base64.getUrlDecoder().decode(fileStr);
 				String fileName = r.getParam("fileName");
-				
 				Path path = Paths.get("images", fileName);
 				FileOutputStream fos = new FileOutputStream(path.toString());
 				fos.write(bytes);
