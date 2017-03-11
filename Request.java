@@ -39,7 +39,8 @@ public class Request {
 	 * --------------
 	 * A public (static) method that takes in a String and UTF-8 encodes it. 
 	 * There is *no* error checking to make sure that the string has not 
-	 * already been encoded.
+	 * already been encoded. See the method above (Decode) for reversing this
+	 * process.
 	 */
 	public static String encode(String str) {
 		try {
@@ -49,6 +50,11 @@ public class Request {
 		}
 	}
 	
+	/**
+	 * Constructor: Request
+	 * --------------------
+	 * @param cmd
+	 */
 	public Request(String cmd){
 		if(!isValid(cmd)) throw new RuntimeException("The command " + cmd + " is not valid.");
 		command = cmd;
