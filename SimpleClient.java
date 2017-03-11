@@ -81,6 +81,8 @@ public class SimpleClient {
 				 String msg = sanitizeErrorMsg(fromServer);
 				throw new IOException(msg.trim());
 			}
+			
+			// Else, just return the result
 			return fromServer;
 		} catch (ConnectException e) {
 			throw new ConnectException("Unable to connect to the server. Did you start it?");
