@@ -25,7 +25,7 @@ import acm.util.RandomGenerator;
 public class SimpleServer {
 
 	// Port 8000 is a good call for security reasons.
-	private int port = 8080;
+	private int port = 8000;
 
 	// This is the student application that can respond to GET requests
 	private SimpleServerListener webApp;
