@@ -162,7 +162,7 @@ public class SimpleServer {
 				fos.close();
 
 				String response = "success";
-				makeStandardExchange(exchange, file);
+				makeStandardExchange(exchange);
 				OutputStream os = exchange.getResponseBody();
 				os.write(response.getBytes());
 				os.close();
