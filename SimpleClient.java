@@ -74,6 +74,9 @@ public class SimpleClient {
 		}
 		try{
 			String fromServer = makeGetRequest(host, request);
+			
+			// By protocol, if the server response starts with Error then I throw an
+			// IO Exception (see the FacePamphlet handout)
 			if(fromServer.startsWith(ERROR_KEY)) {
 				 String msg = sanitizeErrorMsg(fromServer);
 				throw new IOException(msg.trim());
