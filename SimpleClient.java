@@ -3,7 +3,11 @@
  * -----------------------
  * This class provides static methods to make it easier to write a "client" program.
  * It exposes three public methods:
- * 
+ * 	makeRequest
+ *  saveImage
+ *  getImage
+ * Which all send data to a server computer.
+ * Written by Chris Piech (piech@cs.stanford.edu)
  */
 
 import acm.graphics.*;
