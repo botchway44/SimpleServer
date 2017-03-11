@@ -81,7 +81,7 @@ public class SimpleServer {
 			server.createContext("/favicon.ico", new FaveIconHandler());
 			server.createContext("/resources", new ServerFileHandler());
 			server.createContext("/saveImage", new ServerImageReceiver());
-			server.createContext("/", new BottleHandler());
+			server.createContext("/", new GetRequestHandler());
 			server.setExecutor(null); // creates a default executor
 			server.start();
 		} catch (IOException e) {
@@ -216,7 +216,7 @@ public class SimpleServer {
 	 * This class passes on an HTTP request to the "webApp" which the
 	 * user writes.
 	 */
-	class BottleHandler implements HttpHandler {
+	class GetRequestHandler implements HttpHandler {
 		@Override
 		public void handle(HttpExchange t) throws IOException {
 	
