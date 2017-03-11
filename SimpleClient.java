@@ -129,6 +129,12 @@ public class SimpleClient {
 		return fromServer;
 	}
 
+	/**
+	 * Get Image Byte Array
+	 * -------------
+	 * Takes in an image (defined by a fileName) resizes it, and pushes it through jpeg compression. 
+	 * The method then returns the resulting byte array which is ready to be send to the server.
+	 */
 	private static byte[] getImageByteArray(String fileName, int width, int height) throws IOException {
 		GImage toSend = new GImage(fileName);
 		Image original = toSend.getImage();
@@ -142,6 +148,15 @@ public class SimpleClient {
 		return bytes;
 	}
 
+	/**
+	 * Sanitize Error Msg
+	 * -------------
+	 * This method takes in a server "error message" (eg one which starts with Error)
+	 * and extracts the message after the ERROR_KEY. Student's could format the Error
+	 * string in many ways, and I wanted to be robust to the different approaches. To
+	 * do so I make sure to remove all punctuation between the ERROR_KEY and the student
+	 * message (so they could send "Error: <msg>" or "Error; <msg>" or "Error <msg>")
+	 */
 	private static String sanitizeErrorMsg(String fromServer) {
 		String msg = fromServer.substring(ERROR_KEY.length());
 		while(startsWithPunctuation(msg)) {
@@ -150,6 +165,11 @@ public class SimpleClient {
 		return msg.trim();
 	}
 
+	/**
+	 * Starts with punctuation
+	 * -------------
+	 * We define punctuation to be anything that is not a character or a digit :-).
+	 */
 	private static boolean startsWithPunctuation(String msg) {
 		if(msg.isEmpty()) return false;
 		return !Character.isLetterOrDigit(msg.charAt(0));
