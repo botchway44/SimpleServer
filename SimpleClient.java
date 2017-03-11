@@ -27,6 +27,11 @@ public class SimpleClient {
 
 	private static final String ERROR_KEY = "Error";
 
+	/**
+	 * Method: Load Image
+	 * ------------------
+	 * This method leverages Image's ability
+	 */
 	public static GImage getImage(String host, String fileName) {
 		try {
 			host = sanitizeHost(host);
@@ -117,10 +122,6 @@ public class SimpleClient {
 		byte[] bytes = byteArrayOutputStream.toByteArray();
 		return bytes;
 	}
-
-
-
-	
 
 	private static String sanitizeErrorMsg(String fromServer) {
 		String msg = fromServer.substring(ERROR_KEY.length());
