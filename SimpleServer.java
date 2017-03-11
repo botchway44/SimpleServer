@@ -200,8 +200,7 @@ public class SimpleServer {
 				String uriStr = getUriString(exchange);
 				File file = new File(uriStr);
 				exchange.sendResponseHeaders(200, file.length());
-				exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-				exchange.getResponseHeaders().set("Content-Type", "text/plain");
+				makeStandardExchange(exchange);
 				OutputStream outputStream=exchange.getResponseBody();
 				Files.copy(file.toPath(), outputStream);
 				outputStream.close();
