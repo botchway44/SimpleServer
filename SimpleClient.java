@@ -110,9 +110,9 @@ public class SimpleClient {
 	/**
 	 * Make Get Request
 	 * -------------
-	 * Many of the public methods generate get requests by appending the host name to the
-	 * get request string. This method standardizes the host name so that it ends with a 
-	 * '/'.
+	 * This is the most important helper method. It takes in a host string 
+	 * (eg http://localhost:8000/ or http://cba9ae21.ngrok.io/) and a Request
+	 * object. It makes the request as a GET request and returns the result.
 	 */
 	private static String makeGetRequest(String host, Request r) throws IOException{
 		URL destination = new URL(host + r.toGetRequest());
