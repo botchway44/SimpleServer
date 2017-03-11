@@ -78,6 +78,9 @@ public class SimpleClient {
 	 * Method: Make Request
 	 * ------------------
 	 * This method nicely packages the few unsightly details in making an HTTP get request.
+	 * Before it hands the server's response back to the user, it checks if the server's
+	 * response starts with the ERROR_KEY which is how CS106A students have a server return
+	 * an error.
 	 */
 	public static String makeRequest(String host, Request request) throws IOException {
 		host = sanitizeHost(host);
