@@ -80,7 +80,7 @@ public class SimpleServer {
 			server.createContext("/images", new ServerFileHandler());
 			server.createContext("/favicon.ico", new FaveIconHandler());
 			server.createContext("/resources", new ServerFileHandler());
-			server.createContext("/saveImage", new BottleImgReceiver());
+			server.createContext("/saveImage", new ServerImageReceiver());
 			server.createContext("/", new BottleHandler());
 			server.setExecutor(null); // creates a default executor
 			server.start();
@@ -124,7 +124,7 @@ public class SimpleServer {
 		}
 	}
 
-	class BottleImgReceiver implements HttpHandler {
+	class ServerImageReceiver implements HttpHandler {
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
 			try{
