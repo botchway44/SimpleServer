@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Base64;
 
@@ -60,21 +62,27 @@ public class SimpleClient {
 			r.addParam("file", "fileName");
 			r.addParam("file", contents);
 			
-			URL destination = new URL(host + r.toGetRequest());
-			HttpURLConnection conn = (HttpURLConnection) destination.openConnection();
-			conn.setRequestMethod("GET");
-			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line = null;
-			StringBuilder result = new StringBuilder();
-			while ((line = rd.readLine()) != null) {
-				result.append(line);
-			}
-			String fromServer = result.toString();
-			rd.close();
+			String fromServer = makeGetRequest(host, r);
 			return fromServer;
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static String makeGetRequest(String host, Request r)
+			throws MalformedURLException, IOException, ProtocolException {
+		URL destination = new URL(host + r.toGetRequest());
+		HttpURLConnection conn = (HttpURLConnection) destination.openConnection();
+		conn.setRequestMethod("GET");
+		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		String line = null;
+		StringBuilder result = new StringBuilder();
+		while ((line = rd.readLine()) != null) {
+			result.append(line);
+		}
+		String fromServer = result.toString();
+		rd.close();
+		return fromServer;
 	}
 
 	private static byte[] getImageByteArray(String fileName, int width, int height) throws IOException {
