@@ -188,7 +188,7 @@ public class SimpleServer {
 	}
 
 	/**
-	 * Class: BottleFileHandler
+	 * Class: ServerFileHandler
 	 * -----------------------
 	 * For some files (eg images and resources) you want the server to 
 	 * simply return the file. This handler simply returns the file.
@@ -198,7 +198,6 @@ public class SimpleServer {
 		public void handle(HttpExchange exchange) throws IOException {
 			try{
 				String uriStr = getUriString(exchange);
-				System.out.println(uriStr);
 				File file = new File(uriStr);
 				exchange.sendResponseHeaders(200, file.length());
 				exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
