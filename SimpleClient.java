@@ -67,6 +67,23 @@ public class SimpleClient {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public static String makeRequest(String host, Request request) throws IOException {
+		if(!host.endsWith("/")) {
+			host = host + "/";
+		}
+		try{
+			String fromServer = makeGetRequest(host, request);
+			if(fromServer.startsWith(ERROR_KEY)) {
+				 String msg = sanitizeErrorMsg(fromServer);
+				throw new IOException(msg.trim());
+			}
+			rd.close();
+			return fromServer;
+		} catch (ConnectException e) {
+			throw new ConnectException("Unable to connect to the server. Did you start it?");
+		}
+	}
 
 	private static String makeGetRequest(String host, Request r) throws IOException{
 		URL destination = new URL(host + r.toGetRequest());
@@ -98,32 +115,7 @@ public class SimpleClient {
 
 
 
-	public static String makeRequest(String host, Request request) throws IOException {
-		if(!host.endsWith("/")) {
-			host = host + "/";
-		}
-		try{
-			StringBuilder result = new StringBuilder();
-			URL destination = new URL(host + request.toGetRequest());
-			HttpURLConnection conn = (HttpURLConnection) destination.openConnection();
-			conn.setRequestMethod("GET");
-
-			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line = null;
-			while ((line = rd.readLine()) != null) {
-				result.append(line);
-			}
-			String fromServer = result.toString();
-			if(fromServer.startsWith(ERROR_KEY)) {
-				 String msg = sanitizeErrorMsg(fromServer);
-				throw new IOException(msg.trim());
-			}
-			rd.close();
-			return fromServer;
-		} catch (ConnectException e) {
-			throw new ConnectException("Unable to connect to the server. Did you start it?");
-		}
-	}
+	
 
 	private static String sanitizeErrorMsg(String fromServer) {
 		String msg = fromServer.substring(ERROR_KEY.length());
