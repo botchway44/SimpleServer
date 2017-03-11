@@ -70,7 +70,7 @@ public class SimpleClient {
 	}
 
 	private static String makeGetRequest(String host, Request r)
-			throws MalformedURLException, IOException, ProtocolException {
+			throws IOException{
 		URL destination = new URL(host + r.toGetRequest());
 		HttpURLConnection conn = (HttpURLConnection) destination.openConnection();
 		conn.setRequestMethod("GET");
