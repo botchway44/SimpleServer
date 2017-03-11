@@ -135,8 +135,6 @@ public class SimpleServer {
 	
 			try{
 				String uriStr = getUriString(exchange);
-				
-				// turn the uri into a request using the factory method
 				Request request = constructRequest(uriStr);
 				
 				if(request == null) {
