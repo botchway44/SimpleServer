@@ -126,23 +126,27 @@ public class SimpleServer {
 	/**
 	 * Class: GetRequestHandler
 	 * -----------------------
+	 * Most client requests will get handled by this class.
 	 * This class passes on an HTTP request to the SimpleServerListener that the 
-	 * student writes. It first
+	 * student writes. It turns the GET request string into a Request object, then
+	 * calls the SimpleServerListener method: requestMade. 
 	 */
 	class GetRequestHandler implements HttpHandler {
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
 	
 			try{
+				// Make the request
 				String uriStr = getUriString(exchange);
 				Request request = constructRequest(uriStr);
 				if(request == null) {
 					throw new IOException("Malformed request " + uriStr);
 				}
 				
-				// call the student's method
+				// Call the student's method
 				String response = webApp.requestMade(request);
 				
+				// Make the response
 				if(response == null) {
 					throw new RuntimeException("Server request returned null.");
 				}
