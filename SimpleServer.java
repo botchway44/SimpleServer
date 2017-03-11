@@ -69,8 +69,17 @@ public class SimpleServer {
 		}
 	}
 
-	//=--------------- Private -------------=//
+	/* **********************************************************************************
+	 * Private helper methods 
+	 ************************************************************************************/
 	
+	/**
+	 * Method: Make Request
+	 * -------------
+	 * This method starts a server on the given port. It is hard coded to handle
+	 * img requests and resource requests specially by just reading the files and
+	 * returning them. All other requests should be handled by the users code.
+	 */
 	private Request makeRequest(String uri) {
 		String[] requestParts = uri.split("\\?");
 		String command = requestParts[0];
