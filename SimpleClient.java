@@ -1,8 +1,9 @@
 /* 
  * File: SimpleClient.java
  * -----------------------
- * When it is finished, this program will implement a basic social network
- * management system.
+ * This class provides static methods to make it easier to write a "client" program.
+ * It exposes three public methods:
+ * 
  */
 
 import acm.graphics.*;
@@ -27,6 +28,34 @@ public class SimpleClient {
 
 	/* If a server response starts with this magical string, I throw an exception */
 	private static final String ERROR_KEY = "Error";
+	
+	/**
+	 * Method: Make Request
+	 * ------------------
+	 * This method nicely packages the few unsightly details in making an HTTP get request.
+	 * Before it hands the server's response back to the user, it checks if the server's
+	 * response starts with the ERROR_KEY which is how CS106A students have a server return
+	 * an error.
+	 */
+	public static String makeRequest(String host, Request request) throws IOException {
+		host = sanitizeHost(host);
+		try{
+			String fromServer = makeGetRequest(host, request);
+			
+			// By protocol, if the server response starts with Error then I throw an
+			// IO Exception (see the FacePamphlet handout)
+			if(fromServer.startsWith(ERROR_KEY)) {
+				 String msg = sanitizeErrorMsg(fromServer);
+				throw new IOException(msg.trim());
+			}
+			
+			// Else, just return the result
+			return fromServer;
+		} catch (ConnectException e) {
+			throw new ConnectException("Unable to connect to the server. Did you start it?");
+		}
+	}
+	
 
 	/**
 	 * Method: Load Image
@@ -72,35 +101,6 @@ public class SimpleClient {
 			throw new RuntimeException(e);
 		}
 	}
-	
-
-	/**
-	 * Method: Make Request
-	 * ------------------
-	 * This method nicely packages the few unsightly details in making an HTTP get request.
-	 * Before it hands the server's response back to the user, it checks if the server's
-	 * response starts with the ERROR_KEY which is how CS106A students have a server return
-	 * an error.
-	 */
-	public static String makeRequest(String host, Request request) throws IOException {
-		host = sanitizeHost(host);
-		try{
-			String fromServer = makeGetRequest(host, request);
-			
-			// By protocol, if the server response starts with Error then I throw an
-			// IO Exception (see the FacePamphlet handout)
-			if(fromServer.startsWith(ERROR_KEY)) {
-				 String msg = sanitizeErrorMsg(fromServer);
-				throw new IOException(msg.trim());
-			}
-			
-			// Else, just return the result
-			return fromServer;
-		} catch (ConnectException e) {
-			throw new ConnectException("Unable to connect to the server. Did you start it?");
-		}
-	}
-	
 	
 	
 	/* **********************************************************************************
