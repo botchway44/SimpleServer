@@ -163,6 +163,7 @@ public class SimpleServer {
 
 				String response = "success";
 				makeStandardExchange(exchange);
+				exchange.sendResponseHeaders(200, response.length());
 				OutputStream os = exchange.getResponseBody();
 				os.write(response.getBytes());
 				os.close();
