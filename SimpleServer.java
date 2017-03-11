@@ -136,15 +136,13 @@ public class SimpleServer {
 			try{
 				String uriStr = getUriString(exchange);
 				Request request = constructRequest(uriStr);
-				
 				if(request == null) {
 					throw new IOException("Malformed request " + uriStr);
 				}
 				
-				// call the students method
+				// call the student's method
 				String response = webApp.requestMade(request);
 				
-				// pass the response back to the caller
 				if(response == null) {
 					throw new RuntimeException("Server request returned null.");
 				}
