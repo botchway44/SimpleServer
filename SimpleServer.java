@@ -80,7 +80,7 @@ public class SimpleServer {
 	 * img requests and resource requests specially by just reading the files and
 	 * returning them. All other requests should be handled by the users code.
 	 */
-	private Request makeRequest(String uri) {
+	private Request constructRequest(String uri) {
 		String[] requestParts = uri.split("\\?");
 		String command = requestParts[0];
 		Request request = new Request(command);
@@ -138,7 +138,7 @@ public class SimpleServer {
 		public void handle(HttpExchange exchange) throws IOException {
 			try{
 				String uriStr = getUriString(exchange);
-				Request r = makeRequest(uriStr);
+				Request r = constructRequest(uriStr);
 				String fileStr = r.getParam("file");
 				byte [] bytes = Base64.getUrlDecoder().decode(fileStr);
 				String fileName = r.getParam("fileName");
@@ -235,7 +235,7 @@ public class SimpleServer {
 				String uriStr = getUriString(t);
 				
 				// turn the uri into a request
-				Request request = makeRequest(uriStr);
+				Request request = constructRequest(uriStr);
 				
 				if(request == null) {
 					throw new IOException("Malformed request " + uriStr);
