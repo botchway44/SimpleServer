@@ -185,33 +185,6 @@ public class SimpleServer {
 				throw new RuntimeException(e);
 			}
 		}
-
-		private String choseFileName() {
-			RandomGenerator rg = new RandomGenerator();
-			String alphabet = "";
-			for(int i = 0; i < 26; i++) {
-				alphabet += (char)('a' + i);
-				alphabet += (char)('A' + i);
-			}
-			for(int i = 0; i < 10; i++) {
-				alphabet += i;
-			}
-			String fileName = "";
-			while(true) {
-				for(int i = 0; i < 20; i++) {
-					int index = rg.nextInt(alphabet.length());
-					char ch = alphabet.charAt(index);
-					fileName += ch;
-				}
-				fileName += ".jpg";
-				Path path = Paths.get("images", fileName);
-				File tmpFile = path.toFile();
-				boolean exists = tmpFile.exists();
-				if(!exists) {
-					return fileName;
-				}
-			}
-		}
 	}
 
 	/**
