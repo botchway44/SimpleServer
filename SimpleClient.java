@@ -108,7 +108,7 @@ public class SimpleClient {
 	 ************************************************************************************/
 
 	/**
-	 * Sanitize Host
+	 * Make Get Request
 	 * -------------
 	 * Many of the public methods generate get requests by appending the host name to the
 	 * get request string. This method standardizes the host name so that it ends with a 
