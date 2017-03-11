@@ -57,9 +57,8 @@ public class SimpleClient {
 			String contents = Base64.getUrlEncoder().encodeToString(bytes);
 					
 			Request r = new Request("saveImage");
-			String params = "saveImage";
-			params += "?file=" + Request.encode(contents);
-			params += "&fileName=" + Request.encode(fileName);
+			r.addParam("file", "fileName");
+			r.addParam("file", contents);
 			
 			URL destination = new URL(host + params);
 			System.out.println(destination.toString());
