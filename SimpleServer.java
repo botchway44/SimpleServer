@@ -122,6 +122,51 @@ public class SimpleServer {
 		exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
 		exchange.getResponseHeaders().set("Content-Type", "text/plain");
 	}
+	
+	/**
+	 * Class: GetRequestHandler
+	 * -----------------------
+	 * This class passes on an HTTP request to the SimpleServerListener that the 
+	 * student writes. It first
+	 */
+	class GetRequestHandler implements HttpHandler {
+		@Override
+		public void handle(HttpExchange t) throws IOException {
+	
+			try{
+
+				String uriStr = getUriString(t);
+				
+				// turn the uri into a request
+				Request request = constructRequest(uriStr);
+				
+				if(request == null) {
+					throw new IOException("Malformed request " + uriStr);
+				}
+				
+				// call the students method
+				String response = webApp.requestMade(request);
+				
+				// pass the response back to the caller
+				if(response == null) {
+					throw new RuntimeException("Server request returned null.");
+				}
+				makeStandardExchange(t);
+				t.sendResponseHeaders(200, response.length());
+				OutputStream os = t.getResponseBody();
+				t.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+				t.getResponseHeaders().set("Content-Type", "text/plain");
+				os.write(response.getBytes());
+				os.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			} catch(RuntimeException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		}
+
+	}
 
 	/**
 	 * Handlers: FaveIconHandler
@@ -211,51 +256,6 @@ public class SimpleServer {
 				throw new RuntimeException(e);
 			}
 		}
-	}
-
-	/**
-	 * Class: BottleHandler
-	 * -----------------------
-	 * This class passes on an HTTP request to the "webApp" which the
-	 * user writes.
-	 */
-	class GetRequestHandler implements HttpHandler {
-		@Override
-		public void handle(HttpExchange t) throws IOException {
-	
-			try{
-				t.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-				t.getResponseHeaders().set("Content-Type", "text/plain");
-				String uriStr = getUriString(t);
-				
-				// turn the uri into a request
-				Request request = constructRequest(uriStr);
-				
-				if(request == null) {
-					throw new IOException("Malformed request " + uriStr);
-				}
-				
-				// call the students method
-				String response = webApp.requestMade(request);
-				
-				// pass the response back to the caller
-				if(response == null) {
-					throw new RuntimeException("Server request returned null.");
-				}
-				t.sendResponseHeaders(200, response.length());
-				OutputStream os = t.getResponseBody();
-				t.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-				t.getResponseHeaders().set("Content-Type", "text/plain");
-				os.write(response.getBytes());
-				os.close();
-			} catch(IOException e) {
-				e.printStackTrace();
-			} catch(RuntimeException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-		}
-
 	}
 
 }
