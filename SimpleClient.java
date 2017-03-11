@@ -48,15 +48,7 @@ public class SimpleClient {
 		}
 		try{
 			// new
-			GImage toSend = new GImage(fileName);
-			Image original = toSend.getImage();
-			BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-			Graphics g = newImage.createGraphics();
-			g.drawImage(original, 0, 0, width, height, null);
-			g.dispose();
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			ImageIO.write(newImage, "jpg", byteArrayOutputStream);
-			byte[] bytes = byteArrayOutputStream.toByteArray();
+			byte[] bytes = getImageByteArray(fileName, width, height);
 			
 			String contents = Base64.getUrlEncoder().encodeToString(bytes);
 					
@@ -80,6 +72,19 @@ public class SimpleClient {
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static byte[] getImageByteArray(String fileName, int width, int height) throws IOException {
+		GImage toSend = new GImage(fileName);
+		Image original = toSend.getImage();
+		BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics g = newImage.createGraphics();
+		g.drawImage(original, 0, 0, width, height, null);
+		g.dispose();
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		ImageIO.write(newImage, "jpg", byteArrayOutputStream);
+		byte[] bytes = byteArrayOutputStream.toByteArray();
+		return bytes;
 	}
 
 
