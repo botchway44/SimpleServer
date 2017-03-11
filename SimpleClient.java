@@ -61,7 +61,6 @@ public class SimpleClient {
 			r.addParam("file", contents);
 			
 			URL destination = new URL(host + r.toGetRequest());
-			System.out.println(destination.toString());
 			HttpURLConnection conn = (HttpURLConnection) destination.openConnection();
 			conn.setRequestMethod("GET");
 			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
