@@ -53,7 +53,8 @@ public class Request {
 	/**
 	 * Constructor: Request
 	 * --------------------
-	 * @param cmd
+	 * Makes a request, initially by setting its command. The parameters are saved
+	 * as a TreeMap so that order or parameters is consistent.
 	 */
 	public Request(String cmd){
 		if(!isValid(cmd)) throw new RuntimeException("The command " + cmd + " is not valid.");
@@ -61,6 +62,8 @@ public class Request {
 		params = new TreeMap<String, String>();
 	}
 
+	/*** Some Getters and Setters ***/
+	
 	public String getCommand() {
 		return command;
 	}
@@ -81,6 +84,13 @@ public class Request {
 		return params.get(key);
 	}
 	
+	/**
+	 * Method: toString
+	 * --------------------
+	 * Makes a request, initially by setting its command. The parameters are saved
+	 * as a TreeMap so that order or parameters is consistent.
+	 */
+	@Overload
 	public String toString() {
 		String str = command + " (";
 		boolean isFirst = true;
