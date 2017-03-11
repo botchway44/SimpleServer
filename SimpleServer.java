@@ -17,14 +17,14 @@ import com.sun.net.httpserver.HttpServer;
 import acm.util.RandomGenerator;
 
 /**
- * Class: Bottle
+ * Class: SimpleServer
  * -------------
- * This is the interesting class. The one that actually hosts the server and
- * the functionality that I want recreated in a CS106 library.
+ * This makes a server which is set up to receive HTTP GET requests (and
+ * does some slightly more complicated file transfer)
  */
 public class SimpleServer {
 
-	// Port 8000 is a good call for security reasons.
+	// Port 8000 seems like a good default
 	private int port = 8000;
 
 	// This is the student application that can respond to GET requests
