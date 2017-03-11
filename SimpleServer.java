@@ -76,10 +76,10 @@ public class SimpleServer {
 		HttpServer server;
 		try {
 			server = HttpServer.create(new InetSocketAddress(port), 0);
-			server.createContext("/img", new BottleFileHandler());
-			server.createContext("/images", new BottleFileHandler());
+			server.createContext("/img", new ServerFileHandler());
+			server.createContext("/images", new ServerFileHandler());
 			server.createContext("/favicon.ico", new FaveIconHandler());
-			server.createContext("/resources", new BottleFileHandler());
+			server.createContext("/resources", new ServerFileHandler());
 			server.createContext("/saveImage", new BottleImgReceiver());
 			server.createContext("/", new BottleHandler());
 			server.setExecutor(null); // creates a default executor
@@ -188,7 +188,7 @@ public class SimpleServer {
 	 * For some files (eg images and resources) you want the server to 
 	 * simply return the file. This handler simply returns the file.
 	 */
-	class BottleFileHandler implements HttpHandler {
+	class ServerFileHandler implements HttpHandler {
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
 			try{
