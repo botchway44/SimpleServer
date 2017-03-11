@@ -131,11 +131,11 @@ public class SimpleServer {
 	 */
 	class GetRequestHandler implements HttpHandler {
 		@Override
-		public void handle(HttpExchange t) throws IOException {
+		public void handle(HttpExchange exchange) throws IOException {
 	
 			try{
 
-				String uriStr = getUriString(t);
+				String uriStr = getUriString(exchange);
 				
 				// turn the uri into a request
 				Request request = constructRequest(uriStr);
@@ -151,11 +151,11 @@ public class SimpleServer {
 				if(response == null) {
 					throw new RuntimeException("Server request returned null.");
 				}
-				makeStandardExchange(t);
-				t.sendResponseHeaders(200, response.length());
-				OutputStream os = t.getResponseBody();
-				t.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-				t.getResponseHeaders().set("Content-Type", "text/plain");
+				makeStandardExchange(exchange);
+				exchange.sendResponseHeaders(200, response.length());
+				OutputStream os = exchange.getResponseBody();
+				exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+				exchange.getResponseHeaders().set("Content-Type", "text/plain");
 				os.write(response.getBytes());
 				os.close();
 			} catch(IOException e) {
