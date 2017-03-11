@@ -88,15 +88,13 @@ public class SimpleServer {
 			String paramStr = requestParts[1];
 			String[] paramParts = paramStr.split("&");
 			for(String paramPart : paramParts) {
-				if(paramPart.split("=").length != 2) {
-					String key = paramPart.split("=")[0];
-					String value = "";
-					request.addRaw(key, value);
-				} else {
-					String key = paramPart.split("=")[0];
-					String value = paramPart.split("=")[1];
-					request.addRaw(key, value);
-				}
+				String key = paramPart.split("=")[0];
+				String value = "";
+				if(paramPart.split("=").length == 2) {
+					value = paramPart.split("=")[1];
+					
+				} 
+				request.addRaw(key, value);
 			}
 		} 
 		return request;
