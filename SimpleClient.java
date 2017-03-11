@@ -50,6 +50,7 @@ public class SimpleClient {
 			byte[] bytes = getImageByteArray(fileName, width, height);
 			String contents = Base64.getUrlEncoder().encodeToString(bytes);
 					
+			Request r = new Request("saveImage");
 			String params = "saveImage";
 			params += "?file=" + Request.encode(contents);
 			params += "&fileName=" + Request.encode(fileName);
