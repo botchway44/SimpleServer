@@ -1,4 +1,9 @@
-
+/*
+ * File: Request
+ * -------------
+ * This encapsulates a HTTP get request (which has a command and
+ * parameters).
+ */
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
