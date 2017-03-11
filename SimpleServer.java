@@ -153,10 +153,7 @@ public class SimpleServer {
 				os.close();
 			} catch(IOException e) {
 				e.printStackTrace();
-			} catch(RuntimeException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
+			} 
 		}
 
 	}
