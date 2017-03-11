@@ -44,26 +44,6 @@ public class SimpleServer {
 	public SimpleServer(SimpleServerListener webApp) {
 		this.webApp = webApp;
 	}
-
-	private Request makeRequest(String uri) {
-		String[] requestParts = uri.split("\\?");
-		String command = requestParts[0];
-		Request request = new Request(command);
-		if(requestParts.length == 2) {
-			String paramStr = requestParts[1];
-			String[] paramParts = paramStr.split("&");
-			for(String paramPart : paramParts) {
-				if(paramPart.split("=").length != 2) {
-					return null;
-				} else {
-					String key = paramPart.split("=")[0];
-					String value = paramPart.split("=")[1];
-					request.addRaw(key, value);
-				}
-			}
-		} 
-		return request;
-	}
 	
 	/**
 	 * Method: Start
@@ -90,6 +70,26 @@ public class SimpleServer {
 	}
 
 	//=--------------- Private -------------=//
+	
+	private Request makeRequest(String uri) {
+		String[] requestParts = uri.split("\\?");
+		String command = requestParts[0];
+		Request request = new Request(command);
+		if(requestParts.length == 2) {
+			String paramStr = requestParts[1];
+			String[] paramParts = paramStr.split("&");
+			for(String paramPart : paramParts) {
+				if(paramPart.split("=").length != 2) {
+					return null;
+				} else {
+					String key = paramPart.split("=")[0];
+					String value = paramPart.split("=")[1];
+					request.addRaw(key, value);
+				}
+			}
+		} 
+		return request;
+	}
 
 
 	/**
