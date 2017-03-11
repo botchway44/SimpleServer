@@ -117,9 +117,7 @@ public class SimpleServer {
 		public void handle(HttpExchange exchange) throws IOException {
 			try {
 				File file = new File("images/faveicon.ico");
-				exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-				exchange.getResponseHeaders().set("Content-Type", "text/plain");
-				exchange.sendResponseHeaders(200, file.length());
+				makeStandardExchange(exchange, file);
 				OutputStream outputStream=exchange.getResponseBody();
 				Files.copy(file.toPath(), outputStream);
 				outputStream.close();
@@ -129,6 +127,12 @@ public class SimpleServer {
 				e.printStackTrace();
 				throw new RuntimeException(e);
 			}
+		}
+
+		private void makeStandardExchange(HttpExchange exchange, File file) throws IOException {
+			exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			exchange.getResponseHeaders().set("Content-Type", "text/plain");
+			exchange.sendResponseHeaders(200, file.length());
 		}
 	}
 
